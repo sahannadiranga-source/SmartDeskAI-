@@ -1,0 +1,48 @@
+<div class="chat-wrapper">
+  <div class="chat-header">
+    <div class="header-title">
+      <span class="logo"></span>
+      <span>SmartDesk AI</span>
+    </div>
+    <button class="reset-btn" (click)="reset()" title="Reset session">Reset Session</button>
+  </div>
+
+  <div class="message-list" #messageList>
+    @if (messages().length === 0) {
+      <div class="empty-state">Ask me anything about Ekara Digital </div>
+    }
+
+    @for (msg of messages(); track $index) {
+      <div class="message" [class.user]="msg.role === 'user'" [class.bot]="msg.role === 'bot'">
+        <div class="bubble">{{ msg.text }}</div>
+
+        @if (msg.role === 'bot' && msg.sentiment !== undefined) {
+          <div class="meta">
+            <span class="badge" [ngClass]="sentimentClass(msg.sentiment)">
+              {{ sentimentLabel(msg.sentiment) }} ({{ msg.sentiment | number: '1.2-2' }})
+            </span>
+            <span class="badge" [ngClass]="msg.escalation ? 'escalated' : 'normal'">
+              Escalation: {{ msg.escalation }}
+            </span>
+          </div>
+        }
+      </div>
+    }
+
+    @if (loading) {
+      <div class="message bot">
+        <div class="bubble typing">Thinking<span class="dots">...</span></div>
+      </div>
+    }
+  </div>
+
+  <div class="input-area">
+    <textarea
+      [(ngModel)]="userInput"
+      (keydown)="onKeyDown($event)"
+      placeholder="Type your message..."
+      rows="1"
+    ></textarea>
+    <button class="send-btn" (click)="send()" [disabled]="loading">Send</button>
+  </div>
+</div>

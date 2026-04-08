@@ -1,0 +1,21 @@
+# Environment
+SmartDeskAPI/.env
+
+# Backend - build output
+SmartDeskAPI/bin/
+SmartDeskAPI/obj/
+SmartDeskAPI/*.user
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.suo
+
+# Frontend - dependencies and build output
+SmartDesk-ui/node_modules/
+SmartDesk-ui/dist/
+SmartDesk-ui/.angular/
+
+# OS
+.DS_Store
+Thumbs.db
