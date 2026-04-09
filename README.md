@@ -19,8 +19,8 @@ The '.env' file is must be located at SmartDeskAPI/.env
 
 env
 
-HUGGINGFACE_API_KEY=your-huggingface-api-key-here
-HUGGINGFACE_MODEL=facebook/blenderbot-400M-distill
+
+GEMINI_API_KEY=your-Gemini-api-key-here
 ALLOWED_ORIGIN=http://localhost:4200
 
 
