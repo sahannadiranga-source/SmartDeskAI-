@@ -1,14 +1,22 @@
 <div class="chat-wrapper">
+
+  <!-- Header -->
   <div class="chat-header">
-    <div class="header-title">
-      <span>SmartDesk AI</span>
+    <div class="header-brand">
+      <span class="header-title">SmartDesk AI</span>
+      <span class="header-subtitle">Ekara Digital Partners</span>
     </div>
     <button class="reset-btn" (click)="reset()">Reset Session</button>
   </div>
 
+  <!-- Messages -->
   <div class="message-list" #messageList>
+
     @if (messages().length === 0) {
-      <div class="empty-state">Ask me anything about Ekara Digital</div>
+      <div class="empty-state">
+        <span class="empty-state-title">How can I help you today?</span>
+        <span class="empty-state-hint">Ask anything about Ekara Digital</span>
+      </div>
     }
 
     @for (msg of messages(); track $index) {
@@ -30,11 +38,17 @@
 
     @if (loading) {
       <div class="message bot">
-        <div class="bubble typing">Thinking<span class="dots">...</span></div>
+        <div class="typing-bubble">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
       </div>
     }
+
   </div>
 
+  <!-- Input -->
   <div class="input-area">
     <textarea
       [(ngModel)]="userInput"
@@ -44,4 +58,5 @@
     ></textarea>
     <button class="send-btn" (click)="send()" [disabled]="loading">Send</button>
   </div>
+
 </div>

@@ -7,8 +7,7 @@ Env.Load(".env");
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration["HuggingFace:ApiKey"] = Environment.GetEnvironmentVariable("HUGGINGFACE_API_KEY");
-builder.Configuration["HuggingFace:Model"] = Environment.GetEnvironmentVariable("HUGGINGFACE_MODEL");
+builder.Configuration["Gemini:ApiKey"] = Environment.GetEnvironmentVariable("GEMINI_API_KEY");
 
 var allowedOrigin = Environment.GetEnvironmentVariable("ALLOWED_ORIGIN") ?? "http://localhost:4200";
 
@@ -26,8 +25,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<KnowledgeService>();
 builder.Services.AddSingleton<SessionService>();
 builder.Services.AddSingleton<SentimentResponseLayer>();
+builder.Services.AddSingleton<SentimentService>();
 builder.Services.AddHttpClient<AiChatService>();
-builder.Services.AddHttpClient<SentimentService>();
 builder.Services.AddSingleton<IAiAdapter, AiChatService>();
 builder.Services.AddSingleton<IResponseStrategy, AiResponseStrategy>();
 

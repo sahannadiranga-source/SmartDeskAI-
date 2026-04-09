@@ -76,7 +76,9 @@ namespace SmartDeskAPI.Services
             {
                 int score = 0;
                 var faqQuestion = faq.Question.ToLower();
+                var faqAnswer = faq.Answer.ToLower();
 
+                // Exact full question match
                 if (original.Contains(faqQuestion))
                     score += 10;
 
@@ -85,16 +87,28 @@ namespace SmartDeskAPI.Services
                     .Where(w => w.Length > 3 && !StopWords.Contains(w))
                     .ToList();
 
+                // FAQ question words found in user message
                 foreach (var word in faqWords)
                     if (original.Contains(word)) score += 2;
 
+                // User words found in FAQ question
                 foreach (var word in userWords)
+                {
                     if (faqQuestion.Contains(word)) score += 2;
+                    // Also match against answer text (lower weight)
+                    if (faqAnswer.Contains(word)) score += 1;
+                    // Partial/stem match: user word starts with or contains a faq word stem
+                    foreach (var fw in faqWords)
+                        if (fw.Length >= 4 && word.Length >= 4 && (word.StartsWith(fw[..4]) || fw.StartsWith(word[..4])))
+                            score += 1;
+                }
 
+                // Tag matches
                 if (faq.Metadata?.Tags != null)
                     foreach (var tag in faq.Metadata.Tags)
                         if (original.Contains(tag.ToLower())) score += 4;
 
+                // Category match
                 if (!string.IsNullOrEmpty(faq.Category) && original.Contains(faq.Category.ToLower()))
                     score += 2;
 
