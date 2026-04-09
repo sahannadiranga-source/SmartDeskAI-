@@ -6,21 +6,6 @@ Backend: ASP.NET Core 8, C#
 Frontend: Angular 20
 AI: Hugging Face Inference API (`facebook/blenderbot-400M-distill`)
 
-## Project Structure
-
-SmartDeskAI/
-├── SmartDeskAPI/               # Backend solution
-│   ├── SmartDeskAPI/
-│   │   ├── Controllers/        # API endpoints
-│   │   ├── Services/           # Business logic (AI, Sentiment, Session, Knowledge)
-│   │   ├── Strategies/         # Strategy pattern (AI / Fallback)
-│   │   ├── Interfaces/         # IAiAdapter, IResponseStrategy
-│   │   ├── Models/             # Request/Response models
-│   │   ├── Utils/              # Response schema validator
-│   │   └── Data/               # knowledge-base.json
-│   └── .env                    # API keys (see setup below)
-└── SmartDesk-ui/               # Angular frontend
-
 ## Setup
 
 ### 1. Clone the repo
@@ -42,7 +27,7 @@ ALLOWED_ORIGIN=http://localhost:4200
 ### 3. Run the backend
 
 ```bash
-cd SmartDeskAPI/SmartDeskAPI
+cd SmartDeskAPI
 dotnet run
 ```
 API runs at: `http://localhost:5018`

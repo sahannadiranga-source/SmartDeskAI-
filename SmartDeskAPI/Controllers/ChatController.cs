@@ -34,11 +34,11 @@ public class ChatController : ControllerBase
 
         _sessionService.AddMessage(sessionId, "user", request.Message);
 
-        double sentiment = _sentimentService.Analyze(request.Message);
+        double sentiment = await _sentimentService.AnalyzeAsync(request.Message);
         bool escalation = sentiment < -0.6;
 
         var history = _sessionService.GetHistory(sessionId);
-        string rawAnswer = await _responseStrategy.ResolveAsync(request.Message, history);
+        string rawAnswer = await _responseStrategy.ResolveAsync(request.Message, history, sentiment);
         string answer = _sentimentResponseLayer.Apply(rawAnswer, sentiment, escalation);
 
         _sessionService.AddMessage(sessionId, "assistant", answer);

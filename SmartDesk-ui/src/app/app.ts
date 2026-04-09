@@ -78,11 +78,11 @@ export class App implements AfterViewChecked {
   }
 
   sentimentLabel(score: number): string {
-    if (score >= 0.6) return 'Very Positive 😊';
-    if (score >= 0.2) return 'Positive 🙂';
-    if (score >= -0.2) return 'Neutral 😐';
-    if (score >= -0.6) return 'Negative 😟';
-    return 'Very Negative 😠';
+    if (score >= 0.6) return 'Very Positive';
+    if (score >= 0.2) return 'Positive';
+    if (score >= -0.2) return 'Neutral';
+    if (score >= -0.6) return 'Negative';
+    return 'Very Negative';
   }
 
   sentimentClass(score: number): string {

@@ -13,7 +13,7 @@ namespace SmartDeskAPI.Strategies
             _knowledgeService = knowledgeService;
         }
 
-        public Task<string> ResolveAsync(string userMessage, List<SessionMessage> history)
+        public Task<string> ResolveAsync(string userMessage, List<SessionMessage> history, double sentimentScore)
         {
             return Task.FromResult(_knowledgeService.GetAnswer(userMessage));
         }

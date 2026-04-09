@@ -1,15 +1,14 @@
 <div class="chat-wrapper">
   <div class="chat-header">
     <div class="header-title">
-      <span class="logo"></span>
       <span>SmartDesk AI</span>
     </div>
-    <button class="reset-btn" (click)="reset()" title="Reset session">Reset Session</button>
+    <button class="reset-btn" (click)="reset()">Reset Session</button>
   </div>
 
   <div class="message-list" #messageList>
     @if (messages().length === 0) {
-      <div class="empty-state">Ask me anything about Ekara Digital </div>
+      <div class="empty-state">Ask me anything about Ekara Digital</div>
     }
 
     @for (msg of messages(); track $index) {

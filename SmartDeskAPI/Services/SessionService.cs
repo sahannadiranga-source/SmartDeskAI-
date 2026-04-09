@@ -7,7 +7,6 @@ namespace SmartDeskAPI.Services
     {
         private const int MaxHistorySize = 3;
 
-        // sessionId -> ordered list of messages
         private readonly ConcurrentDictionary<string, List<SessionMessage>> _sessions = new();
 
         public List<SessionMessage> GetHistory(string sessionId)
@@ -28,7 +27,6 @@ namespace SmartDeskAPI.Services
                     {
                         history.Add(new SessionMessage { Role = role, Content = content });
 
-                        // Keep only the last MaxHistorySize messages
                         if (history.Count > MaxHistorySize)
                             history.RemoveRange(0, history.Count - MaxHistorySize);
                     }

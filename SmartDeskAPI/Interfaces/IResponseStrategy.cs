@@ -4,6 +4,6 @@ namespace SmartDeskAPI.Interfaces
 
     public interface IResponseStrategy
     {
-        Task<string> ResolveAsync(string userMessage, List<SessionMessage> history);
+        Task<string> ResolveAsync(string userMessage, List<SessionMessage> history, double sentimentScore);
     }
 }

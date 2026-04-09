@@ -24,10 +24,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<KnowledgeService>();
-builder.Services.AddSingleton<SentimentService>();
 builder.Services.AddSingleton<SessionService>();
 builder.Services.AddSingleton<SentimentResponseLayer>();
 builder.Services.AddHttpClient<AiChatService>();
+builder.Services.AddHttpClient<SentimentService>();
 builder.Services.AddSingleton<IAiAdapter, AiChatService>();
 builder.Services.AddSingleton<IResponseStrategy, AiResponseStrategy>();
 

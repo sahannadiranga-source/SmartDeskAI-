@@ -15,11 +15,17 @@ namespace SmartDeskAPI.Strategies
             _knowledgeService = knowledgeService;
         }
 
-        public async Task<string> ResolveAsync(string userMessage, List<SessionMessage> history)
+        public async Task<string> ResolveAsync(string userMessage, List<SessionMessage> history, double sentimentScore)
         {
-            string knowledgeContext = _knowledgeService.GetAnswer(userMessage);
-            string? aiAnswer = await _aiAdapter.AskAsync(userMessage, knowledgeContext);
-            return aiAnswer ?? knowledgeContext;
+            // Pass the full knowledge base so the AI has all context to reason from
+            string fullContext = _knowledgeService.GetFullContext();
+            string? aiAnswer = await _aiAdapter.AskAsync(userMessage, fullContext, sentimentScore);
+
+            // If AI fails, fall back to direct knowledge base lookup
+            if (aiAnswer == null)
+                return _knowledgeService.GetAnswer(userMessage);
+
+            return aiAnswer;
         }
     }
 }

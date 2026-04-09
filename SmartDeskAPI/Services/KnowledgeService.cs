@@ -7,6 +7,18 @@ namespace SmartDeskAPI.Services
     {
         private readonly KnowledgeBase _knowledgeBase;
 
+        private static readonly HashSet<string> StopWords = new()
+        {
+            "what", "when", "where", "which", "who", "whom", "why", "how",
+            "does", "do", "did", "is", "are", "was", "were", "will", "would",
+            "can", "could", "should", "have", "has", "your", "you", "their",
+            "this", "that", "these", "those", "with", "from", "about", "into",
+            "give", "tell", "show", "know", "need", "want", "like", "just",
+            "also", "more", "some", "than", "then", "them", "they", "there"
+        };
+
+        private const string DefaultAnswer = "I'm not sure about that. Please contact our support team at info@ekara.nz or call +64 21 499 224.";
+
         public KnowledgeService()
         {
             var json = File.ReadAllText("Data/knowledge-base.json");
@@ -16,15 +28,48 @@ namespace SmartDeskAPI.Services
             });
         }
 
+        public string GetFullContext()
+        {
+            if (_knowledgeBase == null) return string.Empty;
+
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine($"Company: {_knowledgeBase.Company_Name}, headquartered in {_knowledgeBase.Headquarters}.");
+            sb.AppendLine($"Contact: Email {_knowledgeBase.Contact?.Email}, Phone {_knowledgeBase.Contact?.Phone}.");
+            sb.AppendLine();
+
+            if (_knowledgeBase.Faqs != null)
+            {
+                foreach (var faq in _knowledgeBase.Faqs)
+                {
+                    sb.AppendLine($"Q: {faq.Question}");
+                    sb.AppendLine($"A: {faq.Answer}");
+                    sb.AppendLine();
+                }
+            }
+
+            return sb.ToString();
+        }
+
         public string GetAnswer(string userQuestion)
         {
             if (_knowledgeBase == null || _knowledgeBase.Faqs == null)
-                return "Knowledge base not loaded properly.";
+                return DefaultAnswer;
 
-            userQuestion = userQuestion.ToLower();
-            var userWords = userQuestion.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var original = userQuestion.ToLower();
 
-            string bestAnswer = "Sorry, I couldn't find an answer. Please contact us at info@ekara.nz for further assistance.";
+            if (original.Contains("country") || original.Contains("location") ||
+                original.Contains("headquarter") || original.Contains("based") || original.Contains("where"))
+            {
+                return $"Ekara Digital is headquartered in {_knowledgeBase.Headquarters}. " +
+                       $"Contact us at {_knowledgeBase.Contact?.Email} or {_knowledgeBase.Contact?.Phone}.";
+            }
+
+            var userWords = original
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Where(w => w.Length > 3 && !StopWords.Contains(w))
+                .ToList();
+
+            string bestAnswer = DefaultAnswer;
             int bestScore = 0;
 
             foreach (var faq in _knowledgeBase.Faqs)
@@ -32,38 +77,25 @@ namespace SmartDeskAPI.Services
                 int score = 0;
                 var faqQuestion = faq.Question.ToLower();
 
-                // Full question contained in user message
-                if (userQuestion.Contains(faqQuestion))
+                if (original.Contains(faqQuestion))
                     score += 10;
 
-                // Individual words from the FAQ question found in user message
-                var faqWords = faqQuestion.Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                    .Where(w => w.Length > 3); // skip short stop words
+                var faqWords = faqQuestion
+                    .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                    .Where(w => w.Length > 3 && !StopWords.Contains(w))
+                    .ToList();
+
                 foreach (var word in faqWords)
-                {
-                    if (userQuestion.Contains(word))
-                        score += 2;
-                }
+                    if (original.Contains(word)) score += 2;
 
-                // User words found in FAQ question
-                foreach (var word in userWords.Where(w => w.Length > 3))
-                {
-                    if (faqQuestion.Contains(word))
-                        score += 2;
-                }
+                foreach (var word in userWords)
+                    if (faqQuestion.Contains(word)) score += 2;
 
-                // Tag matching
                 if (faq.Metadata?.Tags != null)
-                {
                     foreach (var tag in faq.Metadata.Tags)
-                    {
-                        if (userQuestion.Contains(tag.ToLower()))
-                            score += 3;
-                    }
-                }
+                        if (original.Contains(tag.ToLower())) score += 4;
 
-                // Category matching
-                if (!string.IsNullOrEmpty(faq.Category) && userQuestion.Contains(faq.Category.ToLower()))
+                if (!string.IsNullOrEmpty(faq.Category) && original.Contains(faq.Category.ToLower()))
                     score += 2;
 
                 if (score > bestScore)
@@ -73,7 +105,7 @@ namespace SmartDeskAPI.Services
                 }
             }
 
-            return bestAnswer;
+            return bestScore < 2 ? DefaultAnswer : bestAnswer;
         }
     }
 }

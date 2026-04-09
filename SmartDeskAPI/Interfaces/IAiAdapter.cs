@@ -2,6 +2,6 @@ namespace SmartDeskAPI.Interfaces
 {
     public interface IAiAdapter
     {
-        Task<string?> AskAsync(string userMessage, string knowledgeContext);
+        Task<string?> AskAsync(string userMessage, string knowledgeContext, double sentimentScore);
     }
 }

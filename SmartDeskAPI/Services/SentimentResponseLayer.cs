@@ -1,44 +1,34 @@
 namespace SmartDeskAPI.Services
 {
-    /// <summary>
-    /// Wraps a raw answer with tone-appropriate messaging based on sentiment score.
-    /// Score ranges:
-    ///   >= 0.6  : Very positive
-    ///   0.2 to 0.6 : Mildly positive
-    ///  -0.2 to 0.2 : Neutral
-    ///  -0.6 to -0.2 : Mildly negative
-    ///   < -0.6  : Frustrated / escalation
-    /// </summary>
     public class SentimentResponseLayer
     {
+        private static readonly string FallbackMarker = "I'm not sure about that";
+
         public string Apply(string answer, double sentimentScore, bool isEscalation)
         {
+            bool hasUsefulAnswer = !answer.StartsWith(FallbackMarker);
+
             if (isEscalation)
             {
-                return $"🚨 Priority Support: We're sorry you're having a difficult experience. " +
-                       $"Our team is here to help you right away.\n\n{answer}\n\n" +
-                       $"If this issue persists, please contact us directly at info@ekara.nz or call +64 21 499 224.";
+                if (hasUsefulAnswer)
+                    return $"Priority Support: We're sorry you're having a difficult experience. Our team is here to help you right away.\n\n{answer}\n\nIf this issue persists, please contact us directly at info@ekara.nz or call +64 21 499 224.";
+
+                return "Priority Support: We're sorry you're having a difficult experience. Our team is here to help you right away.\n\nPlease reach out to us directly so we can resolve this for you:\nEmail: info@ekara.nz\nPhone: +64 21 499 224\n\nOur team responds within 2-3 business hours for priority cases.";
             }
 
             if (sentimentScore >= 0.6)
-            {
-                return $"😊 Great to hear you're having a positive experience!\n\n{answer}";
-            }
+                return $"Great to hear you're having a positive experience!\n\n{answer}";
 
             if (sentimentScore >= 0.2)
-            {
                 return $"Thanks for reaching out!\n\n{answer}";
-            }
 
             if (sentimentScore >= -0.2)
-            {
-                // Neutral — return answer as-is
                 return answer;
-            }
 
-            // Mildly negative (-0.6 to -0.2)
-            return $"We're sorry to hear you're facing some trouble. Let us help.\n\n{answer}\n\n" +
-                   $"Feel free to reach out at info@ekara.nz if you need further assistance.";
+            if (hasUsefulAnswer)
+                return $"We're sorry to hear you're facing some trouble. Let us help.\n\n{answer}\n\nFeel free to reach out at info@ekara.nz if you need further assistance.";
+
+            return "We're sorry to hear you're having trouble. Please contact our support team directly:\nEmail: info@ekara.nz\nPhone: +64 21 499 224";
         }
     }
 }
