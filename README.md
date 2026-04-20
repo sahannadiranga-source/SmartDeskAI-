@@ -1,5 +1,5 @@
 # SmartDesk AI — FAQ System
-A full-stack AI powered FAQ chatbot built for Ekara Digital Partners.It answers questions from a structured knowledge base using Google Gemini, with real time sentiment analysis and automatic escalation for frustrated users.
+A full-stack AI powered FAQ chatbot built for fuso Digital Partners.It answers questions from a structured knowledge base using Google Gemini, with real time sentiment analysis and automatic escalation for frustrated users.
 
 ## Tech Stack
 Backend: ASP.NET Core 8, C#
@@ -79,7 +79,7 @@ Frontend runs at: `http://localhost:4200`
 ```json
 {
   "sessionId": "",
-  "message": "What services does Ekara offer?"
+  "message": "What services does fuso offer?"
 }
 ```
 

@@ -1,8 +1,8 @@
 {
-  "company_name": "Ekara Digital Partners",
+  "company_name": "Fuso Digital Partners",
   "headquarters": "Wellington, New Zealand",
   "contact": {
-    "email": "info@ekara.nz",
+    "email": "info@fuso.nz",
     "phone": "+64 21 499 224",
     "response_time": "2-3 business days for new quotes"
   },
@@ -15,7 +15,7 @@
     {
       "id": 1,
       "category": "services",
-      "question": "What core services does Ekara Digital offer?",
+      "question": "What core services does fuso Digital offer?",
       "answer": "We specialize in custom Software Development, AI & Machine Learning solutions, Cloud Infrastructure design, ERP/CRM support, and Digital Marketing strategies.",
       "metadata": {
         "tags": [ "software", "AI", "cloud", "marketing" ],
@@ -25,7 +25,7 @@
     {
       "id": 2,
       "category": "AI/ML",
-      "question": "How can Ekara help with Artificial Intelligence?",
+      "question": "How can fuso help with Artificial Intelligence?",
       "answer": "We help businesses build smart chatbots, predictive analytics models, recommendation engines, and data-driven dashboards to transform raw data into actionable insights.",
       "metadata": {
         "tags": [ "machine learning", "automation", "predictive analytics" ]
@@ -54,7 +54,7 @@
       "id": 5,
       "category": "business",
       "question": "How do I get a quote for a new project?",
-      "answer": "You can fill out the contact form on our website or email us directly at info@ekara.nz. Our team typically responds with a quote or follow-up within 2-3 business days.",
+      "answer": "You can fill out the contact form on our website or email us directly at info@fuso.nz. Our team typically responds with a quote or follow-up within 2-3 business days.",
       "metadata": {
         "tags": [ "sales", "quote", "onboarding" ]
       }
@@ -71,7 +71,7 @@
     {
       "id": 7,
       "category": "infrastructure",
-      "question": "Does Ekara provide Cloud and DevOps services?",
+      "question": "Does fuso provide Cloud and DevOps services?",
       "answer": "Yes. We design scalable, secure cloud solutions and streamline development through DevOps automation to accelerate delivery and improve collaboration.",
       "metadata": {
         "tags": [ "cloud", "devops", "aws", "azure", "automation" ]
@@ -80,8 +80,8 @@
     {
       "id": 8,
       "category": "experience",
-      "question": "How long has Ekara been in operation?",
-      "answer": "Ekara Digital has been delivering excellence for over 16 years, completing 100+ projects across 5 different countries.",
+      "question": "How long has fuso been in operation?",
+      "answer": "fuso Digital has been delivering excellence for over 16 years, completing 100+ projects across 5 different countries.",
       "metadata": {
         "tags": [ "history", "track record", "global" ]
       }
@@ -90,7 +90,7 @@
       "id": 9,
       "category": "support",
       "question": "My system is down or extremely slow.",
-      "answer": "For critical system failures, Ekara provides 24-hour support. Please ensure your internet connection is stable; if the issue persists, our engineers will intervene.",
+      "answer": "For critical system failures, fuso provides 24-hour support. Please ensure your internet connection is stable; if the issue persists, our engineers will intervene.",
       "metadata": {
         "tags": [ "emergency", "slow", "down" ],
         "is_critical": true

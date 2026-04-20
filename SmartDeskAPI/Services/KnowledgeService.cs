@@ -17,7 +17,7 @@ namespace SmartDeskAPI.Services
             "also", "more", "some", "than", "then", "them", "they", "there"
         };
 
-        private const string DefaultAnswer = "I'm not sure about that. Please contact our support team at info@ekara.nz or call +64 21 499 224.";
+        private const string DefaultAnswer = "I'm not sure about that. Please contact our support team at info@fuso.nz or call +64 21 499 224.";
 
         public KnowledgeService()
         {
@@ -60,7 +60,7 @@ namespace SmartDeskAPI.Services
             if (original.Contains("country") || original.Contains("location") ||
                 original.Contains("headquarter") || original.Contains("based") || original.Contains("where"))
             {
-                return $"Ekara Digital is headquartered in {_knowledgeBase.Headquarters}. " +
+                return $"fuso Digital is headquartered in {_knowledgeBase.Headquarters}. " +
                        $"Contact us at {_knowledgeBase.Contact?.Email} or {_knowledgeBase.Contact?.Phone}.";
             }
 

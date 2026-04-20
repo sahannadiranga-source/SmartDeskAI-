@@ -11,9 +11,9 @@ namespace SmartDeskAPI.Services
             if (isEscalation)
             {
                 if (hasUsefulAnswer)
-                    return $"Priority Support: We're sorry you're having a difficult experience. Our team is here to help you right away.\n\n{answer}\n\nIf this issue persists, please contact us directly at info@ekara.nz or call +64 21 499 224.";
+                    return $"Priority Support: We're sorry you're having a difficult experience. Our team is here to help you right away.\n\n{answer}\n\nIf this issue persists, please contact us directly at info@fuso.nz or call +64 21 499 224.";
 
-                return "Priority Support: We're sorry you're having a difficult experience. Our team is here to help you right away.\n\nPlease reach out to us directly so we can resolve this for you:\nEmail: info@ekara.nz\nPhone: +64 21 499 224\n\nOur team responds within 2-3 business hours for priority cases.";
+                return "Priority Support: We're sorry you're having a difficult experience. Our team is here to help you right away.\n\nPlease reach out to us directly so we can resolve this for you:\nEmail: info@fuso.nz\nPhone: +64 21 499 224\n\nOur team responds within 2-3 business hours for priority cases.";
             }
 
             if (sentimentScore >= 0.6)
@@ -26,9 +26,9 @@ namespace SmartDeskAPI.Services
                 return answer;
 
             if (hasUsefulAnswer)
-                return $"We're sorry to hear you're facing some trouble. Let us help.\n\n{answer}\n\nFeel free to reach out at info@ekara.nz if you need further assistance.";
+                return $"We're sorry to hear you're facing some trouble. Let us help.\n\n{answer}\n\nFeel free to reach out at info@fuso.nz if you need further assistance.";
 
-            return "We're sorry to hear you're having trouble. Please contact our support team directly:\nEmail: info@ekara.nz\nPhone: +64 21 499 224";
+            return "We're sorry to hear you're having trouble. Please contact our support team directly:\nEmail: info@fuso.nz\nPhone: +64 21 499 224";
         }
     }
 }

@@ -32,10 +32,10 @@ namespace SmartDeskAPI.Services
                 };
 
                 var systemInstruction =
-                    $"You are a helpful support assistant for Ekara Digital Partners, Wellington, New Zealand.\n" +
+                    $"You are a helpful support assistant for fuso Digital Partners, Wellington, New Zealand.\n" +
                     $"Tone: {tone}\n" +
                     $"Answer ONLY using the knowledge provided below. " +
-                    $"If the answer is not in the knowledge, say you are not sure and provide: Email info@ekara.nz or Phone +64 21 499 224.\n" +
+                    $"If the answer is not in the knowledge, say you are not sure and provide: Email info@fuso.nz or Phone +64 21 499 224.\n" +
                     $"Keep answers concise and clear.\n\n" +
                     $"Knowledge:\n{knowledgeContext}";
 
